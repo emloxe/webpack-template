@@ -2,6 +2,7 @@ var path = require('path');
 var htmlWebpackPlugin = require('html-webpack-plugin');   // 处理html
 
 module.exports = {
+  context: path.resolve(__dirname, '../'),
 
   entry: {   // 打包入口文件
   	'index': './src/script/index.js',
@@ -35,10 +36,10 @@ module.exports = {
         test: /\.js$/,    // 处理js文件
         loader: 'babel-loader',
         exclude: [    // loader排除范围
-          path.resolve(__dirname, 'node_modules')
+           './node_modules'
         ],   
         include: [   // loader处理范围，加上这个参数，打包速度回快很多
-          path.resolve(__dirname, 'app/src')
+          './src/script'
         ],    
         query: {
           presets: ['latest ']   // 指定版本
@@ -49,10 +50,10 @@ module.exports = {
         loader: 'style-loader!css-loader?importLoaders=1!postcss-loader',  // postercss-loader对less文件进行转义，style-loader将在html页面中添加style标签
                           // importLoaders=1 在css文件中import引用的css 进行postcss-loader处理
         exclude: [    // loader排除范围
-          path.resolve(__dirname, 'node_modules')
+          './node_modules'
         ],   
         include: [   // loader处理范围，加上这个参数，打包速度回快很多
-          path.resolve(__dirname, 'app/src')
+          './src/style'
         ]
       },
       {
