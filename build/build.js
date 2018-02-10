@@ -3,11 +3,8 @@
 const express = require('express');
 
 const webpack = require('webpack')
-const webpackConfig = require('./webpack.prod.conf')
+const webpackConfig = require('./webpack.prod.config')
 
-function(a, b){
-
-}
 const compiler = webpack(webpackConfig)
 
 compiler.watch({
@@ -36,7 +33,7 @@ compiler.watch({
   var app = express();
   app.use(express.static('dist'));
   app.listen(3000, () => {
-    console.log('app running, listening at http://localhost:3000');
+    console.log('\r \r app running, listening at http://localhost:3000');
   })
 
 })
