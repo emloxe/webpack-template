@@ -1,5 +1,7 @@
 var path = require('path');
 var htmlWebpackPlugin = require('html-webpack-plugin');   // 处理html
+var webpack = require('webpack');
+
 
 module.exports = {
   context: path.resolve(__dirname, '../'),
@@ -10,9 +12,9 @@ module.exports = {
   },
 
   output: {
-    path: './dist',   // 打包好的文件放在
+    path: path.resolve(__dirname, '../dist'),   // 打包好的文件放在
     // publicPath: 'http://emloxe.github.io',  //  将script中src变为绝对定位
-    filename: '/js/[name]-[chunkhash].js'   // 打包好的文件名叫什么，指定name会将所有的js文件打包到该名称下，最好写为`[name].js`
+    filename: './js/[name]-[chunkhash].js'   // 打包好的文件名叫什么，指定name会将所有的js文件打包到该名称下，最好写为`[name].js`
   },
 
 
@@ -27,6 +29,16 @@ module.exports = {
         removeComments: true,    // 删除注释
         collapseInlineTagWhitespace: true     // 删除空格
       }   
+    }),
+    new webpack.LoaderOptionsPlugin({
+      options: {
+        postcss: [
+          require('autoprefixer')({    // 浏览器加前缀
+           /*...options*/
+            broswers: ['last 5 versions']
+          })
+        ]
+      }
     })
   ],
 
@@ -48,7 +60,7 @@ module.exports = {
       {
         test: /\.css$/,    // 处理css文件
         loader: 'style-loader!css-loader?importLoaders=1!postcss-loader',  // postercss-loader对less文件进行转义，style-loader将在html页面中添加style标签
-                          // importLoaders=1 在css文件中import引用的css 进行postcss-loader处理
+                          // importLoaders=1 在css文件中import引用的css 进行postcss-loader处理 ***style-loader!css-loader?importLoaders=1!postcss-loader
         exclude: [    // loader排除范围
           './node_modules'
         ],   
@@ -58,7 +70,7 @@ module.exports = {
       },
       {
         test: /\.less$/,    // 处理less文件
-        loader: 'style!css!postcss!less'   // style-loader简化为了style
+        loader: 'style!css!postcss-loader!less'   // style-loader简化为了style
       },
       {
         test: /\.(png|jpg|gif|svg)$/i,    // 图片处理
@@ -69,13 +81,6 @@ module.exports = {
       }
 
     ]
-  },
-
-  postcss: [
-    require('autoprefixer')({    // 浏览器加前缀
-     /*...options*/
-      broswers: ['last 5 versions']
-    })
-  ]
+  }
 
 }

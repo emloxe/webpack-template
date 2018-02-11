@@ -24,7 +24,7 @@ compiler.watch({
 
 
   if (stats.hasErrors()) {
-    console.log(chalk.red('  Build failed with errors.\n'))
+    console.log(chalk.red('  ~_~ ~_~ Build failed with errors.\n'))
     process.exit(1)
   }
 
@@ -33,7 +33,7 @@ compiler.watch({
   var app = express();
   app.use(express.static('dist'));
   app.listen(3000, () => {
-    console.log('\r \r app running, listening at http://localhost:3000');
+    console.log('\n \n app running, listening at http://localhost:3000');
   })
 
 })
