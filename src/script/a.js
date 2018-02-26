@@ -1,4 +1,4 @@
-import ./style/a.less;
+import '../style/a.less';
 
 
 var str = 'a';

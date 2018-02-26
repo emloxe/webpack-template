@@ -1,4 +1,4 @@
-import ./style/index.less;
+import '../style/index.css';
 
 
 var str = 'index';

@@ -20,11 +20,11 @@ module.exports = {
 
   plugins: [
     new htmlWebpackPlugin({
-      filename: 'main.html',
-      template: 'index.html',    // 指定模板的位置
+      filename: 'index.html',
+      template: path.resolve(__dirname, '../src/index.html'),    // 指定模板的位置
       inject: false,   // 生成的js引入在main的'head'
                         //传入false则不引入生成的js,可以在html中写<script src="<%= htmlWebpackPlugin.files.chunks.main.entry"></script> 这样也可以获取到main.js 的文件
-      chunks: ['main'],    // 需要哪个js就写哪个
+      chunks: ['index'],    // 需要哪个js就写哪个
       minify: {     // 压缩
         removeComments: true,    // 删除注释
         collapseInlineTagWhitespace: true     // 删除空格
@@ -59,9 +59,13 @@ module.exports = {
       },
       {
         test: /\.css$/,    // 处理css文件
-        loader: 'style-loader!css-loader?importLoaders=1!postcss-loader',  // postercss-loader对less文件进行转义，style-loader将在html页面中添加style标签
-                          // importLoaders=1 在css文件中import引用的css 进行postcss-loader处理 ***style-loader!css-loader?importLoaders=1!postcss-loader
-        exclude: [    // loader排除范围
+        use: [
+          {loader: "style-loader"},  // style-loader将在html页面中添加style标签
+          {loader: "css-loader", options: { importLoaders: 1 }},
+          {loader: "postcss-loader"}  // postercss-loader对less文件进行转义 // importLoaders=1 在css文件中import引用的css 进行postcss-loader处理
+        ], 
+
+         exclude: [    // loader排除范围
           './node_modules'
         ],   
         include: [   // loader处理范围，加上这个参数，打包速度回快很多
@@ -69,16 +73,22 @@ module.exports = {
         ]
       },
       {
-        test: /\.less$/,    // 处理less文件
-        loader: 'style!css!postcss-loader!less'   // style-loader简化为了style
-      },
-      {
-        test: /\.(png|jpg|gif|svg)$/i,    // 图片处理
-        loaders: [
-          'url-loader?limit=2000&name=assets/[name]-[hash:5].[ext]',
-          'image-webpack'
+        test: /\.less$/,    // 处理less文件 
+
+        use: [
+          {loader: "style-loader"},
+          {loader: "css-loader", options: { importLoaders: 1 }},
+          {loader: "postcss-loader"},
+          {loader: "less-loader"}
+        ],
+        exclude: [    // loader排除范围
+          './node_modules'
+        ],  
+        include: [   // loader处理范围，加上这个参数，打包速度回快很多
+          './src/style'
         ]
       }
+
 
     ]
   }

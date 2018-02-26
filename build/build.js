@@ -2,7 +2,8 @@
 
 const express = require('express');
 
-const webpack = require('webpack')
+const webpack = require('webpack');
+const chalk = require('chalk');
 const webpackConfig = require('./webpack.prod.config')
 
 const compiler = webpack(webpackConfig)
@@ -24,16 +25,16 @@ compiler.watch({
 
 
   if (stats.hasErrors()) {
-    console.log(chalk.red('  ~_~ ~_~ Build failed with errors.\n'))
+    console.log(chalk.bgRed('  ~_~ ~_~ Build failed with errors.\n'))
     process.exit(1)
   }
 
-  console.log(chalk.cyan('  Build complete.\n'))
+  console.log(chalk.bgCyan('  Build complete.\n'))
 
   var app = express();
   app.use(express.static('dist'));
   app.listen(3000, () => {
-    console.log('\n \n app running, listening at http://localhost:3000');
+    console.log(chalk.bgCyan('\n \n app running, listening at http://localhost:3000'));
   })
 
 })
