@@ -14,7 +14,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, '../dist'),   // 打包好的文件放在
     // publicPath: 'http://emloxe.github.io',  //  将script中src变为绝对定位
-    filename: './js/[name]-[chunkhash].js'   // 打包好的文件名叫什么，指定name会将所有的js文件打包到该名称下，最好写为`[name].js`
+    filename: './js/[name].js'   // 打包好的文件名叫什么，指定name会将所有的js文件打包到该名称下，最好写为`[name].js`
   },
 
 
@@ -43,15 +43,15 @@ module.exports = {
   ],
 
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js$/,    // 处理js文件
         loader: 'babel-loader',
         exclude: [    // loader排除范围
-           './node_modules'
+           '../node_modules'
         ],   
         include: [   // loader处理范围，加上这个参数，打包速度回快很多
-          './src/script'
+          '../src/script'
         ],    
         query: {
           presets: ['latest ']   // 指定版本
@@ -65,11 +65,8 @@ module.exports = {
           {loader: "postcss-loader"}  // postercss-loader对less文件进行转义 // importLoaders=1 在css文件中import引用的css 进行postcss-loader处理
         ], 
 
-         exclude: [    // loader排除范围
-          './node_modules'
-        ],   
-        include: [   // loader处理范围，加上这个参数，打包速度回快很多
-          './src/style'
+        exclude: [    // loader排除范围
+          '../node_modules'
         ]
       },
       {
@@ -82,10 +79,7 @@ module.exports = {
           {loader: "less-loader"}
         ],
         exclude: [    // loader排除范围
-          './node_modules'
-        ],  
-        include: [   // loader处理范围，加上这个参数，打包速度回快很多
-          './src/style'
+          '../node_modules'
         ]
       }
 

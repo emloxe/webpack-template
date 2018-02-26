@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
+    "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.config.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "node build/build.js"
   },
@@ -18,8 +18,11 @@
     "url": "https://github.com/emloxe/webpack-demo/issues"
   },
   "homepage": "https://github.com/emloxe/webpack-demo#readme",
-  "dependencies": {},
+  "dependencies": {
+    "cnpm": "^5.2.0"
+  },
   "devDependencies": {
+    "autoprefixer": "^8.0.0",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "chalk": "^2.3.1",
@@ -32,10 +35,11 @@
     "less-loader": "^4.0.5",
     "npm": "^5.6.0",
     "ora": "^1.4.0",
-    "postcss-loader": "^2.1.0",
+    "postcss-loader": "^2.1.1",
     "style-loader": "^0.20.1",
     "url-loader": "^0.6.2",
     "webpack": "^3.10.0",
+    "webpack-dev-server": "^3.0.0",
     "webpack-merge": "^4.1.1"
   }
 }
