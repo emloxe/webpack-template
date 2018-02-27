@@ -31,12 +31,14 @@ compiler.watch({
 
   console.log(chalk.bgCyan('  Build complete.\n'))
 
-  var app = express();
-  app.use(express.static('dist'));
-  app.listen(3000, () => {
-    console.log(chalk.bgCyan('\n \n app running, listening at http://localhost:3000'));
-  })
 
+});
+
+
+var app = express();
+app.use(express.static('dist'));
+app.listen(3000, () => {
+  console.log(chalk.bgCyan('\n \n app running, listening at http://localhost:3000'));
 })
 
 

@@ -22,7 +22,7 @@ module.exports = {
     new htmlWebpackPlugin({
       filename: 'index.html',
       template: path.resolve(__dirname, '../src/index.html'),    // 指定模板的位置
-      inject: false,   // 生成的js引入在main的'head'
+      inject: 'head',   // 生成的js引入在main的'head'
                         //传入false则不引入生成的js,可以在html中写<script src="<%= htmlWebpackPlugin.files.chunks.main.entry"></script> 这样也可以获取到main.js 的文件
       chunks: ['index'],    // 需要哪个js就写哪个
       minify: {     // 压缩
@@ -46,27 +46,24 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,    // 处理js文件
-        loader: 'babel-loader',
-        exclude: [    // loader排除范围
-           '../node_modules'
-        ],   
-        include: [   // loader处理范围，加上这个参数，打包速度回快很多
-          '../src/script'
-        ],    
-        query: {
-          presets: ['latest ']   // 指定版本
-        }
+        use: {
+          loader: 'babel-loader'
+        },
+        exclude: [    // loader排除范围  todo 范围路径有问题
+           '/node_modules'
+        ]
+ 
       },
       {
         test: /\.css$/,    // 处理css文件
         use: [
           {loader: "style-loader"},  // style-loader将在html页面中添加style标签
           {loader: "css-loader", options: { importLoaders: 1 }},
-          {loader: "postcss-loader"}  // postercss-loader对less文件进行转义 // importLoaders=1 在css文件中import引用的css 进行postcss-loader处理
+          {loader: "postcss-loader"}  // importLoaders=1 在css文件中import引用的css 进行postcss-loader处理
         ], 
 
         exclude: [    // loader排除范围
-          '../node_modules'
+          '/node_modules'
         ]
       },
       {
@@ -79,7 +76,7 @@ module.exports = {
           {loader: "less-loader"}
         ],
         exclude: [    // loader排除范围
-          '../node_modules'
+          '/node_modules'
         ]
       }
 
