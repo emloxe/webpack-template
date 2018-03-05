@@ -54,31 +54,7 @@ module.exports = {
         ]
  
       },
-      {
-        test: /\.css$/,    // 处理css文件
-        use: [
-          {loader: "style-loader"},  // style-loader将在html页面中添加style标签
-          {loader: "css-loader", options: { importLoaders: 1 }},
-          {loader: "postcss-loader"}  // importLoaders=1 在css文件中import引用的css 进行postcss-loader处理
-        ], 
 
-        exclude: [    // loader排除范围
-          '/node_modules'
-        ]
-      },
-      {
-        test: /\.less$/,    // 处理less文件 
-
-        use: [
-          {loader: "style-loader"},
-          {loader: "css-loader", options: { importLoaders: 1 }},
-          {loader: "postcss-loader"},
-          {loader: "less-loader"}
-        ],
-        exclude: [    // loader排除范围
-          '/node_modules'
-        ]
-      }
 
 
     ]
