@@ -1,9 +1,258 @@
-@import 'rest.css';
+@fontColorGreen: #8dc891;
 
-
-@color: red;
-
-html, body{
-  height: 100%;
-  background-color: @color;
+a:hover{
+  background: transparent;
 }
+
+.trans{
+  transition: all .5s;
+  opacity: 0;
+
+  &.trans-move{
+    opacity: 1;
+  }
+}
+
+
+
+
+
+
+
+
+.section{
+  position: relative;
+  background-color: #fff;
+  overflow: hidden;
+  text-align: center;
+
+
+  h1{
+    margin-top: 10vh;
+    line-height: 20vh;
+    font-size: 30px;
+  }
+}
+/*第一屏样式设置*/
+.section1{
+  padding: 10px;
+  background: #282c34;
+  text-align: left;
+  line-height: 1.5em;
+
+
+  p{
+    font-size: 18px;
+    line-height: 1.5em;
+    text-align: left;
+    color: @fontColorGreen;
+    white-space: nowrap;
+    overflow: hidden; 
+
+
+  }
+
+
+  .cursor{
+    display: inline-block;
+    width: 2px;
+    height: 20px;
+    background: #eee;
+    vertical-align: sub;
+    margin-left: .2em;
+    animation: cursorFlash 3s infinite;
+  }
+}
+
+@keyframes cursorFlash{
+  0%{opacity: 0}
+  50%{opacity: 1}
+  100%{opacity: 0} 
+}
+
+
+
+
+.section2{
+  h1{
+    transform: scale(.5, .5);
+
+
+    &.trans-move{
+      transform: scale(1, 1);
+    }
+
+  }
+
+
+  h5{
+    font-size: 16px;
+    line-height: 10vh;
+  }
+
+
+  .skill{
+    position: relative;
+    
+    &.skill-1{
+      transform: translate(-100px, 0);
+    }
+
+    &.skill-2{
+      transform: translate(0, 50px);
+      transition: all .5s .1s;
+    }
+
+    &.skill-3{
+      transform: translate(100px, 0);
+      transition: all .5s .2s;
+    }
+
+    &.trans-move{
+      transform: translate(0, 0);
+    }
+
+    ol{
+      max-width: 250px;
+      margin: 3vh auto 0;
+
+    }
+
+
+    li{
+      text-indent: 1em;
+      text-align: left;
+      line-height: 1.5em;
+    }
+
+    img{
+      width: 40%;
+    }
+  }
+
+
+}
+
+
+
+
+
+
+
+/*第二屏样式设置*/
+.section2, .section4{
+  background: #f7f9fb;
+}
+
+
+
+
+
+.section3{
+
+  h1, .trans{
+    transform: scale(.5, .5);
+
+
+  }
+
+
+  h1{
+    &.trans{
+      transition: .5s cubic-bezier(.25,.1,.3,1.5);
+    }  
+  }
+
+  .trans-1, .trans-2{
+    &.trans{
+      transition: .5s cubic-bezier(.25,.1,.3,1.5) .3s;
+    }
+  }
+
+  .trans-move{
+    transform: scale(1, 1);
+  }
+
+  h5{
+    font-size: 18px;
+    line-height: 2em;
+  }
+
+  
+
+  .trans p{
+    max-width: 500px;
+    padding: 0 30px;
+    margin: auto;
+    line-height: 1.5em;
+    text-indent: 2em;
+    text-align: left;
+  }
+
+  .col-sm-6{
+    margin-bottom: 20px;
+  }
+}
+
+
+
+
+
+
+.section4{
+
+  h1{
+    transform: translate(-200px, 0);
+  }
+  h5{
+    font-size: 20px;
+    line-height: 2em;
+  
+    
+  }
+
+  .trans.trans-move{
+    transform: translate(0, 0);
+  }
+
+  .trans-1{
+    transition: all .5s .2s;
+    transform: translate(0, 200px);
+  }
+
+  .trans-2{
+    transition: all .5s .4s;
+    transform: translate(0, 200px);
+  }
+
+
+  .trans-3{
+    transition: all .5s .6s;
+    transform: translate(0, 200px);
+  }
+
+
+
+  .icon{
+    margin-right: 10px;
+  }
+
+  .box{
+    margin-top: 10vh
+  }
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

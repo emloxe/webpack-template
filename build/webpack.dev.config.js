@@ -14,6 +14,12 @@ module.exports = merge(baseWebpackConfig,{
   module: {
     rules: [
       {
+        test: /\.html$/,   // 处理图片，注意图片引用地址是否正确，否者会报 `ERROR in ./node_modules/html-webpack-plugin/lib/loader.js!` 错误 
+        use: {
+          loader: 'html-loader'
+        }
+      },
+      {
         test: /\.css$/,    // 处理css文件
         use: [
           {loader: "style-loader"},  // style-loader将在html页面中添加style标签
