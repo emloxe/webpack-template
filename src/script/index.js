@@ -10,6 +10,7 @@ $(function(){
 
   init();
 
+  console.log('test');
 
 
   function init(){

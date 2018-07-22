@@ -44,6 +44,7 @@
     "npm": "^5.6.0",
     "ora": "^1.4.0",
     "postcss-loader": "^2.1.1",
+    "source-map-loader": "^0.2.3",
     "style-loader": "^0.20.1",
     "url-loader": "^0.6.2",
     "webpack": "^3.11.0",

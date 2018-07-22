@@ -47,13 +47,18 @@ module.exports = {
 
       {
         test: /\.js$/,    // 处理js文件
-        use: {
-          loader: 'babel-loader'
-        },
+        use: [
+  		    {
+            loader: 'babel-loader'
+          },
+  		    {
+            loader: 'source-map-loader'
+          }
+		    ],
+		    enforce: 'pre',
         exclude: [    // loader排除范围  todo 范围路径有问题
           path.resolve(__dirname, '../node_modules/')
         ]
- 
       },
       {
         test: /\.(png|jpg|gif|svg)$/i,    // 图片处理
