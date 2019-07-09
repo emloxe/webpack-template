@@ -1,45 +1,57 @@
-'use strict'
-
-const express = require('express');
-
+const ora = require('ora');
+const rm = require('rimraf');
+const path = require('path');
 const webpack = require('webpack');
 const chalk = require('chalk');
-const webpackConfig = require('./webpack.prod.config')
+const webpackConfig = require('./webpack.prod.config');
 
-const compiler = webpack(webpackConfig)
+const spinner = ora('building for production...');
+spinner.start();
 
-compiler.watch({
- // watch options 
-}, (err, stats) => {
+// compiler.watch({
+//  // watch options 
+// }, (err, stats) => {
 
-  /* ...处理结果 */
+//   /* ...处理结果 */
 
-  if (err) throw err;
-  process.stdout.write(stats.toString({
-    colors: true,
-    modules: false,
-    children: false, // If you are using ts-loader, setting this to true will make TypeScript errors show up during build.
-    chunks: false,
-    chunkModules: false
-  }) + '\n\n')
+//   if (err) throw err;
+//   process.stdout.write(stats.toString({
+//     colors: true,
+//     modules: false,
+//     children: false, // If you are using ts-loader, setting this to true will make TypeScript errors show up during build.
+//     chunks: false,
+//     chunkModules: false
+//   }) + '\n\n')
 
+//   if (stats.hasErrors()) {
+//     console.log(chalk.bgRed('Build failed with errors.\n'))
+//     process.exit(1)
+//   }
+//   console.log(chalk.bgCyan('  Build complete.\n'))
+// });
 
-  if (stats.hasErrors()) {
-    console.log(chalk.bgRed('  ~_~ ~_~ Build failed with errors.\n'))
-    process.exit(1)
-  }
+rm(path.join(__dirname, '../dist'), err => {
+  if (err) throw err
+  webpack(webpackConfig, (err, stats) => {
+    spinner.stop()
+    if (err) throw err
+    process.stdout.write(stats.toString({
+      colors: true,
+      modules: false,
+      children: false, // If you are using ts-loader, setting this to true will make TypeScript errors show up during build.
+      chunks: false,
+      chunkModules: false
+    }) + '\n\n')
 
-  console.log(chalk.bgCyan('  Build complete.\n'))
+    if (stats.hasErrors()) {
+      console.log(chalk.red('  Build failed with errors.\n'))
+      process.exit(1)
+    }
 
-
-});
-
-
-var app = express();
-app.use(express.static('dist'));
-app.listen(3000, () => {
-  console.log(chalk.bgCyan('\n \n app running, listening at http://localhost:3000'));
+    console.log(chalk.cyan('  Build complete.\n'))
+    console.log(chalk.yellow(
+      '  Tip: built files are meant to be served over an HTTP server.\n' +
+      '  Opening index.html over file:// won\'t work.\n'
+    ))
+  })
 })
-
-
-

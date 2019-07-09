@@ -1,4 +1,6 @@
 import '../style/a.less';
 
 
-var str = 'a';
+const str = 'a';
+
+console.log(str);
