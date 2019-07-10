@@ -1,17 +1,36 @@
 const path = require('path');
 const htmlWebpackPlugin = require('html-webpack-plugin'); // 处理html
 const webpack = require('webpack');
+const utils = require('./utils');
+const config = require('./config');
+
+function resolve (dir) {
+  return path.join(__dirname, '..', dir)
+}
+
+const createLintingRule = () => ({
+  test: /\.(js)$/,
+  loader: 'eslint-loader',
+  enforce: 'pre',
+  include: [resolve('src'), resolve('test')],
+  options: {
+    formatter: require('eslint-friendly-formatter'),
+    emitWarning: !config.dev.showEslintErrorsInOverlay
+  }
+})
 
 module.exports = {
   context: path.resolve(__dirname, '../'),
   entry: { // 打包入口文件
-    'common': './src/script/common.js',
-  	'index': './src/script/index.js'
+    common: './src/script/common.js',
+  	index: './src/script/index.js'
   },
   output: {
-    path: path.resolve(__dirname, '../dist/static'), // 打包好的文件放在
-    // publicPath: 'http://emloxe.github.io', //  将script中src变为绝对定位
-    filename: 'js/[name].js'   // 打包好的文件名叫什么，指定name会将所有的js文件打包到该名称下，最好写为`[name].js`
+    path: config.build.assetsRoot, // 打包好的文件放在
+    filename: '[name].js',   // 打包好的文件名叫什么，指定name会将所有的js文件打包到该名称下，最好写为`[name].js`
+    // publicPath: process.env.NODE_ENV === 'production'
+    // ? config.build.assetsPublicPath
+    // : config.dev.assetsPublicPath
   },
   plugins: [
     new htmlWebpackPlugin({
@@ -38,6 +57,7 @@ module.exports = {
   ],
   module: {
     rules: [
+      ...(config.dev.useEslint ? [createLintingRule()] : []),
       {
         test: /\.js$/,    // 处理js文件
         use: [
@@ -49,43 +69,45 @@ module.exports = {
           }
 		    ],
 		    enforce: 'pre',
-        exclude: [    // loader排除范围  todo 范围路径有问题
+        exclude: [
           path.resolve(__dirname, '../node_modules/')
-        ]
-      },
-      {
-        test: /\.css$/,    // 处理css文件
-        use: [
-          {loader: "style-loader"},  // style-loader将在html页面中添加style标签
-          {loader: "css-loader", options: { importLoaders: 1 }},
-          {loader: "postcss-loader"}  // importLoaders=1 在css文件中import引用的css 进行postcss-loader处理
-        ], 
-        exclude: [    // loader排除范围
-          path.resolve(__dirname,'../node_modules')
-        ]
-      },
-      {
-        test: /\.less$/,    // 处理less文件 
-        use: [
-          {loader: "style-loader"},
-          {loader: "css-loader", options: { importLoaders: 1 }},
-          {loader: "postcss-loader"},
-          {loader: "less-loader", options: {
-              strictMath: true,
-              noIeCompat: true
-            }}
         ],
-        exclude: [    // loader排除范围
-          path.resolve(__dirname,'../node_modules')
-        ]
+        include: [resolve('src')]
       },
+      // {
+      //   test: /\.css$/,    // 处理css文件
+      //   use: [
+      //     {loader: "style-loader"},  // style-loader将在html页面中添加style标签
+      //     {loader: "css-loader", options: { importLoaders: 1 }},
+      //     {loader: "postcss-loader"}  // importLoaders=1 在css文件中import引用的css 进行postcss-loader处理
+      //   ], 
+      //   exclude: [    // loader排除范围
+      //     path.resolve(__dirname,'../node_modules')
+      //   ]
+      // },
+      // {
+      //   test: /\.less$/,    // 处理less文件 
+      //   use: [
+      //     {loader: "style-loader"},
+      //     {loader: "css-loader", options: { importLoaders: 1 }},
+      //     {loader: "postcss-loader"},
+      //     {loader: "less-loader", options: {
+      //         strictMath: true,
+      //         noIeCompat: true
+      //       }}
+      //   ],
+      //   exclude: [    // loader排除范围
+      //     path.resolve(__dirname,'../node_modules')
+      //   ]
+      // },
       {
-        test: /\.(png|jpg|gif|svg)$/i,    // 图片处理
-        loaders: [
-          'url-loader?limit=2000&name=assets/images/[name]-[hash:5].[ext]',
-          'image-webpack-loader'
-        ],
-        exclude: [    // loader排除范围
+        test: /\.(png|jpg|gif|svg)$/i, // 图片处理
+        loaders: 'url-loader',
+        options: {
+          limit: 10000,
+          name: utils.assetsPath('images/[name]-[hash:7].[ext]')
+        },
+        exclude: [
           path.resolve(__dirname, '../node_modules/')
         ],  
       },
@@ -94,9 +116,9 @@ module.exports = {
         loader: 'url-loader',
         options: {
           limit: 10000,
-          name: 'media/[name].[hash:5].[ext]'
+          name: utils.assetsPath('media/[name]-[hash:7].[ext]')
         },
-        exclude: [    // loader排除范围
+        exclude: [
           path.resolve(__dirname, '../node_modules/')
         ],  
       },
@@ -105,9 +127,9 @@ module.exports = {
         loader: 'url-loader',
         options: {
           limit: 10000,
-          name:'fonts/[name].[hash:5].[ext]'
+          name: utils.assetsPath('fonts/[name]-[hash:7].[ext]')
         },
-        exclude: [    // loader排除范围
+        exclude: [
           path.resolve(__dirname, '../node_modules/')
         ],  
       }
