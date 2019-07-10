@@ -23,7 +23,7 @@ module.exports = {
   context: path.resolve(__dirname, '../'),
   entry: { // 打包入口文件
     common: './src/script/common.js',
-  	index: './src/script/index.js'
+    index: './src/script/index.js'
   },
   output: {
     path: config.build.assetsRoot, // 打包好的文件放在
@@ -44,31 +44,21 @@ module.exports = {
         collapseInlineTagWhitespace: true // 删除空格
       }   
     }),
-    new webpack.LoaderOptionsPlugin({
-      options: {
-        postcss: [
-          require('autoprefixer')({    // 浏览器加前缀
-           /*...options*/
-            broswers: ['last 5 versions']
-          })
-        ]
-      }
-    })
   ],
   module: {
     rules: [
-      ...(config.dev.useEslint ? [createLintingRule()] : []),
+      // ...(config.dev.useEslint ? [createLintingRule()] : []), // 是否在控制台输出eslint检查结构
       {
         test: /\.js$/,    // 处理js文件
         use: [
-  		    {
+          {
             loader: 'babel-loader'
           },
-  		    {
+          {
             loader: 'source-map-loader'
           }
-		    ],
-		    enforce: 'pre',
+        ],
+        enforce: 'pre',
         exclude: [
           path.resolve(__dirname, '../node_modules/')
         ],
@@ -81,9 +71,6 @@ module.exports = {
       //     {loader: "css-loader", options: { importLoaders: 1 }},
       //     {loader: "postcss-loader"}  // importLoaders=1 在css文件中import引用的css 进行postcss-loader处理
       //   ], 
-      //   exclude: [    // loader排除范围
-      //     path.resolve(__dirname,'../node_modules')
-      //   ]
       // },
       // {
       //   test: /\.less$/,    // 处理less文件 
@@ -96,9 +83,6 @@ module.exports = {
       //         noIeCompat: true
       //       }}
       //   ],
-      //   exclude: [    // loader排除范围
-      //     path.resolve(__dirname,'../node_modules')
-      //   ]
       // },
       {
         test: /\.(png|jpg|gif|svg)$/i, // 图片处理
@@ -107,9 +91,6 @@ module.exports = {
           limit: 10000,
           name: utils.assetsPath('images/[name]-[hash:7].[ext]')
         },
-        exclude: [
-          path.resolve(__dirname, '../node_modules/')
-        ],  
       },
       {
         test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
@@ -118,9 +99,6 @@ module.exports = {
           limit: 10000,
           name: utils.assetsPath('media/[name]-[hash:7].[ext]')
         },
-        exclude: [
-          path.resolve(__dirname, '../node_modules/')
-        ],  
       },
       {
         test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
@@ -129,9 +107,6 @@ module.exports = {
           limit: 10000,
           name: utils.assetsPath('fonts/[name]-[hash:7].[ext]')
         },
-        exclude: [
-          path.resolve(__dirname, '../node_modules/')
-        ],  
       }
     ]
   }
