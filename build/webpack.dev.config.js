@@ -8,18 +8,26 @@ const baseWebpackConfig = require('./webpack.base.config');
 const utils = require('./utils');
 const config = require('./config');
 
+process.env.NODE_ENV = 'development';
+
 const HOST = process.env.HOST
 const PORT = process.env.PORT && Number(process.env.PORT)
 
 const devWebpackConfig = merge(baseWebpackConfig,{
   context: path.resolve(__dirname, '../'),
   devtool: 'inline-source-map',    // 定位到错误的位置
-  devServer: {
-    contentBase: path.resolve(__dirname,'../dist'),
-    host: 'localhost',
+  devServer: { // 配置webpack服务
+    hot: true,
+    contentBase: false, // since we use CopyWebpackPlugin.
     compress: true,
-    port: 3000
-  }, //  配置webpack服务
+    host: HOST || config.dev.host,
+    port: PORT || config.dev.port,
+    publicPath: config.dev.assetsPublicPath,
+    quiet: true, // necessary for FriendlyErrorsPlugin
+    watchOptions: {
+      poll: config.dev.poll,
+    }
+  },
   plugins: [
     // copy custom static assets
     new CopyWebpackPlugin([
@@ -62,7 +70,7 @@ module.exports = new Promise((resolve, reject) => {
         onErrors: config.dev.notifyOnErrors
         ? utils.createNotifierCallback()
         : undefined
-      }))
+      }));
 
       resolve(devWebpackConfig);
     }
