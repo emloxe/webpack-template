@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack')
 const merge = require('webpack-merge');
 const portfinder = require('portfinder');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
@@ -29,6 +30,7 @@ const devWebpackConfig = merge(baseWebpackConfig,{
     }
   },
   plugins: [
+    new webpack.HotModuleReplacementPlugin(),
     // copy custom static assets
     new CopyWebpackPlugin([
       {
