@@ -1,6 +1,12 @@
 {
   "extends": "airbnb-base",
   "plugins": ["prettier"],
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "sourceType": "module",
+    "allowImportExportEverywhere": false,
+    "codeFrame": true
+  },
   "env": {
     "browser": true,
     "es6": true,
