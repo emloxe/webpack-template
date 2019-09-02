@@ -1,5 +1,5 @@
 {
-  "name": "webpack-demo",
+  "name": "webpack-template",
   "version": "2.0.0",
   "description": "",
   "main": "index.js",
@@ -10,10 +10,10 @@
     "fix": "eslint --fix ./src"
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {},
   "devDependencies": {
-    "@babel/core": "^7.5.0",
+    "@babel/core": "^7.5.5",
     "@babel/plugin-proposal-class-properties": "^7.5.5",
     "@babel/plugin-transform-runtime": "^7.5.5",
     "@babel/preset-env": "^7.5.2",
@@ -26,7 +26,7 @@
     "clean-webpack-plugin": "^3.0.0",
     "copy-webpack-plugin": "^5.0.3",
     "css-loader": "^3.0.0",
-    "eslint": "^6.0.1",
+    "eslint": "^6.3.0",
     "eslint-config-airbnb-base": "^13.2.0",
     "eslint-friendly-formatter": "^4.0.1",
     "eslint-loader": "^2.2.1",
