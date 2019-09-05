@@ -1,19 +1,19 @@
 const path = require('path');
 const merge = require('webpack-merge');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
+const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin');
 const baseWebpackConfig = require('./webpack.base.config');
 const utils = require('./utils');
 const config = require('./config');
 
-const webpackConfig = merge(baseWebpackConfig,{
+const webpackConfig = merge(baseWebpackConfig, {
   mode: 'production',
   output: {
     path: config.build.assetsRoot,
     filename: utils.assetsPath('js/[name].[chunkhash].js'),
-    chunkFilename: utils.assetsPath('js/[id].[chunkhash].js')
+    chunkFilename: utils.assetsPath('js/[id].[chunkhash].js'),
   },
   plugins: [
     new UglifyJsPlugin(),
@@ -25,32 +25,32 @@ const webpackConfig = merge(baseWebpackConfig,{
     new OptimizeCSSPlugin({
       cssProcessorOptions: config.build.productionSourceMap
         ? { safe: true, map: { inline: false } }
-        : { safe: true }
+        : { safe: true },
     }),
     // copy custom static assets
     new CopyWebpackPlugin([
       {
         from: path.resolve(__dirname, '../static'),
         to: config.build.assetsSubDirectory,
-        ignore: ['.*']
-      }
-    ])
+        ignore: ['.*'],
+      },
+    ]),
   ],
   module: {
-    rules:[
-    ...utils.styleLoaders({
-      sourceMap: config.build.productionSourceMap,
-      extract: true,
-      usePostCSS: true
-    }),
-    {
-      test: /\.html$/,   // 处理html中的图片
-      use: {
-        loader: 'html-withimg-loader'
-      }
-    },
-    ]
-  }
+    rules: [
+      ...utils.styleLoaders({
+        sourceMap: config.build.productionSourceMap,
+        extract: true,
+        usePostCSS: true,
+      }),
+      {
+        test: /\.html$/, // 处理html中的图片
+        use: {
+          loader: 'html-withimg-loader',
+        },
+      },
+    ],
+  },
 });
 
 module.exports = webpackConfig;
