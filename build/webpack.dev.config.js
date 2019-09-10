@@ -9,8 +9,6 @@ const baseWebpackConfig = require('./webpack.base.config');
 const utils = require('./utils');
 const config = require('./config');
 
-process.env.NODE_ENV = 'development';
-
 const { HOST } = process.env;
 const PORT = process.env.PORT && Number(process.env.PORT);
 
