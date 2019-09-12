@@ -13,6 +13,7 @@ const { HOST } = process.env;
 const PORT = process.env.PORT && Number(process.env.PORT);
 
 const devWebpackConfig = merge(baseWebpackConfig, {
+  mode: 'development',
   context: path.resolve(__dirname, '../'),
   devtool: 'inline-source-map', // 定位到错误的位置
   devServer: { // 配置webpack服务
