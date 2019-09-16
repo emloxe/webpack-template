@@ -27,9 +27,9 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     watchOptions: {
       poll: config.dev.poll,
     },
-    overlay: { // 页面显示错误
-      errors: true,
-    },
+    overlay: config.dev.errorOverlay // 页面显示错误
+    ? { warnings: false, errors: true }
+    : false,
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
