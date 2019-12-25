@@ -13,6 +13,7 @@ const { HOST } = process.env;
 const PORT = process.env.PORT && Number(process.env.PORT);
 
 const devWebpackConfig = merge(baseWebpackConfig, {
+  mode: 'development',
   context: path.resolve(__dirname, '../'),
   devtool: 'inline-source-map', // 定位到错误的位置
   devServer: { // 配置webpack服务
@@ -26,9 +27,9 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     watchOptions: {
       poll: config.dev.poll,
     },
-    overlay: { // 页面显示错误
-      errors: config.dev.showEslintErrorsInOverlay,
-    },
+    overlay: config.dev.errorOverlay // 页面显示错误
+    ? { warnings: false, errors: true }
+    : false,
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),

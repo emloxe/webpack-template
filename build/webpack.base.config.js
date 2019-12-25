@@ -12,9 +12,7 @@ const createLintingRule = () => ({
   loader: 'eslint-loader',
   enforce: 'pre',
   include: [resolve('src'), resolve('test')],
-  exclude: [
-    resolve('node_modules')
-  ],
+  exclude: [resolve('node_modules')],
   options: {
     formatter: require('eslint-friendly-formatter'),
     emitWarning: !config.dev.showEslintErrorsInOverlay,
@@ -30,9 +28,9 @@ module.exports = {
   output: {
     path: config.build.assetsRoot, // 打包好的文件放在
     filename: '[name].js', // 打包好的文件名叫什么，指定name会将所有的js文件打包到该名称下，最好写为`[name].js`
-    // publicPath: process.env.NODE_ENV === 'production'
-    // ? config.build.assetsPublicPath
-    // : config.dev.assetsPublicPath
+    publicPath: process.env.NODE_ENV === 'production'
+    ? config.build.assetsPublicPath
+    : config.dev.assetsPublicPath
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -60,10 +58,7 @@ module.exports = {
             loader: 'source-map-loader',
           },
         ],
-        enforce: 'pre',
-        exclude: [
-          path.resolve(__dirname, '../node_modules/'),
-        ],
+        exclude: [resolve('node_modules')],
         include: [resolve('src')],
       },
       // {

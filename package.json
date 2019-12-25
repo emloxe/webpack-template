@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "npm run dev",
-    "dev": "cross-env NODE_ENV=development webpack-dev-server --inline --progress --config build/webpack.dev.config.js",
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --host 0.0.0.0 --inline --progress --config build/webpack.dev.config.js",
     "build": "cross-env NODE_ENV=production node build/build.js",
     "lint": "eslint  --ext .js --fix ./src",
     "precommit": "npm run lint"
