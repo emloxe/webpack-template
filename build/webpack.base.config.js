@@ -12,6 +12,9 @@ const createLintingRule = () => ({
   loader: 'eslint-loader',
   enforce: 'pre',
   include: [resolve('src'), resolve('test')],
+  exclude: [
+    resolve('node_modules')
+  ],
   options: {
     formatter: require('eslint-friendly-formatter'),
     emitWarning: !config.dev.showEslintErrorsInOverlay,
@@ -46,7 +49,7 @@ module.exports = {
   ],
   module: {
     rules: [
-      // ...(config.dev.useEslint ? [createLintingRule()] : []), // 是否在控制台输出eslint检查结构
+      ...(config.dev.useEslint ? [createLintingRule()] : []), // 是否在控制台输出eslint检查结构
       {
         test: /\.js$/, // 处理js文件
         use: [

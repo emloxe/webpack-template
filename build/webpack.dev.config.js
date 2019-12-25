@@ -27,7 +27,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       poll: config.dev.poll,
     },
     overlay: { // 页面显示错误
-      errors: true,
+      errors: config.dev.showEslintErrorsInOverlay,
     },
   },
   plugins: [
