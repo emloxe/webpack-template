@@ -1,5 +1,6 @@
+import { union } from 'loadsh';
 import '../style/a.less';
 
-const str = 'a';
+const arr = [[2], [1, 2]];
 
-console.log(str);
+console.log(union(arr));
