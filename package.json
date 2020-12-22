@@ -44,7 +44,7 @@
     "image-webpack-loader": "^5.0.0",
     "less": "^3.9.0",
     "less-loader": "^5.0.0",
-    "node-notifier": "^5.4.0",
+    "node-notifier": "^8.0.1",
     "optimize-css-assets-webpack-plugin": "^5.0.3",
     "ora": "^3.4.0",
     "portfinder": "^1.0.20",
