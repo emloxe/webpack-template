@@ -7,11 +7,14 @@
     "start": "npm run dev",
     "dev": "cross-env NODE_ENV=development webpack-dev-server --host 0.0.0.0 --inline --progress --config build/webpack.dev.config.js",
     "build": "cross-env NODE_ENV=production node build/build.js",
-    "fix": "eslint --fix ./src"
+    "lint": "eslint  --ext .js --fix ./src",
+    "precommit": "npm run lint"
   },
   "author": "",
   "license": "MIT",
-  "dependencies": {},
+  "dependencies": {
+    "loadsh": "^0.0.4"
+  },
   "devDependencies": {
     "@babel/core": "^7.5.5",
     "@babel/plugin-proposal-class-properties": "^7.5.5",

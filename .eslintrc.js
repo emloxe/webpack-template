@@ -27,6 +27,7 @@ module.exports = {
         args: "none"
       }
     ],
+    "no-underscore-dangle": 0,
     "import/no-extraneous-dependencies": ["error", { devDependencies: true }],
     // disallow parameter object manipulation except for specific exclusions
     "no-param-reassign": [
