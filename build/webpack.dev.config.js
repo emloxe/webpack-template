@@ -30,6 +30,14 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     overlay: config.dev.errorOverlay // 页面显示错误
     ? { warnings: false, errors: true }
     : false,
+    open: config.dev.autoOpenBrowser,
+    // proxy: [
+    //   {
+    //     // 后端静态资源、数据交互api、socket
+    //     context: ["/business"],
+    //     target: config.dev.proxyTarget,
+    //   }
+    // ],
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),

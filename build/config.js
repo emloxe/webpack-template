@@ -36,7 +36,9 @@ module.exports = {
     // https://vue-loader.vuejs.org/en/options.html#cachebusting
     cacheBusting: true,
 
-    cssSourceMap: true
+    cssSourceMap: true,
+
+    // proxyTarget: '0.0.0.0' //代理请求
   },
 
   build: {
