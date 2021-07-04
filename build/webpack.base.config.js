@@ -76,26 +76,6 @@ module.exports = {
         exclude: [resolve('node_modules')],
         include: [resolve('src')],
       },
-      // {
-      //   test: /\.css$/,    // 处理css文件
-      //   use: [
-      //     {loader: "style-loader"},  // style-loader将在html页面中添加style标签
-      //     {loader: "css-loader", options: { importLoaders: 1 }},
-      //     {loader: "postcss-loader"}  // importLoaders=1 在css文件中import引用的css 进行postcss-loader处理
-      //   ],
-      // },
-      // {
-      //   test: /\.less$/,    // 处理less文件
-      //   use: [
-      //     {loader: "style-loader"},
-      //     {loader: "css-loader", options: { importLoaders: 1 }},
-      //     {loader: "postcss-loader"},
-      //     {loader: "less-loader", options: {
-      //         strictMath: true,
-      //         noIeCompat: true
-      //       }}
-      //   ],
-      // },
       {
         test: /\.(png|jpg|gif|svg)$/i, // 图片处理
         loaders: 'url-loader',
